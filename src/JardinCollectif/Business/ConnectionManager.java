@@ -49,12 +49,11 @@ public class ConnectionManager {
                     String prenom = readString(tokenizer);
                     String nom = readString(tokenizer);
                     String motDePasse = readString(tokenizer);
-                    int noMembre = readInt(tokenizer);
                     
                     if(ma == null)
                     	ma = new MembreAccess(cx);
                     
-                    ma.inscrireMembre(prenom, nom, motDePasse, noMembre);
+                    ma.inscrireMembre(prenom, nom, motDePasse);
 
                 }
                 else if (command.equals("supprimerMembre"))
@@ -101,7 +100,7 @@ public class ConnectionManager {
                     	la = new LotAccess(cx);
                 	LotManager lm = new LotManager(cx);
                 	if(lm.hasPlants(nomLot))
-                		jc.AfficherErreur("erreur, il y a encore desd plantes non récolté dans ce lot");
+                		jc.AfficherErreur("erreur, il y a encore desd plantes non rï¿½coltï¿½ dans ce lot");
                 	else
                 		la.supprimerLot(nomLot);
                 }

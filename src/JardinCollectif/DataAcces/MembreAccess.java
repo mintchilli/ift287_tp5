@@ -14,13 +14,13 @@ public class MembreAccess {
 		conn = cx;
 	}
 
-	public boolean inscrireMembre(String prenom, String nom, String motDePasse, int noMembre) {
+	public boolean inscrireMembre(String prenom, String nom, String motDePasse) {
 		try {
 			PreparedStatement s = conn.getConnection()
-					.prepareStatement("insert into Membre(noMembre, nom, prenom, motDePasse) values(?,?,?,?)");
-			s.setInt(1, noMembre);
-			s.setString(2, nom);
-			s.setString(3, prenom);
+					.prepareStatement("insert into Membre(nom, prenom, nomutilisateur, motDePasse) values(?,?,?,?)");
+			s.setString(1, nom);
+			s.setString(2, prenom);
+			s.setString(3, prenom+nom);
 			s.setString(4, motDePasse);
 
 			s.execute();
@@ -51,7 +51,7 @@ public class MembreAccess {
 	public boolean makeAdmin(int noMembre) {
 		try {
 			PreparedStatement s = conn.getConnection()
-					.prepareStatement("UPDATE membre SET isadmin = 'true' WHERE nomembre = ?");
+					.prepareStatement("UPDATE membre SET estadmin = 'true' WHERE nomembre = ?");
 			s.setInt(1, noMembre);
 			s.execute();
 			return true;
@@ -117,7 +117,7 @@ public class MembreAccess {
 			ArrayList<String> ret = new ArrayList<String>();
 
 			while (rs.next()) {
-				String data = "Prénom : ";
+				String data = "Prï¿½nom : ";
 				data += rs.getString("prenom");
 				data += ", Nom : ";
 				data += rs.getString("nom");
@@ -149,7 +149,7 @@ public class MembreAccess {
 			String data = "";
 
 			while (rs.next()) {
-				data = "Prénom : ";
+				data = "Prï¿½nom : ";
 				data += rs.getString("prenom");
 				data += ", Nom : ";
 				data += rs.getString("nom");
