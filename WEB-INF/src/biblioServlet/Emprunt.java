@@ -8,7 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Bibliotheque.BiblioException;
-import Bibliotheque.GestionBibliotheque;
+import JardinCollectif.GestionJardin;
 
 /**
  * Servlet qui gère les requêtes de la page Emprunts
@@ -67,7 +67,7 @@ public class Emprunt extends HttpServlet
                 // ex�cuter la transaction
                 String datePret = (new Date(System.currentTimeMillis())).toString();
                 String idMembre = (String) request.getSession().getAttribute("userId");
-                GestionBibliotheque biblioUpdate = (GestionBibliotheque) request.getSession()
+                GestionJardin biblioUpdate = (GestionJardin) request.getSession()
                         .getAttribute("biblioUpdate");
                 synchronized (biblioUpdate)
                 {

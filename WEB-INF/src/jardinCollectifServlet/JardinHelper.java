@@ -1,5 +1,7 @@
 package jardinCollectifServlet;
 import Bibliotheque.*;
+import JardinCollectif.GestionJardin;
+import JardinCollectif.IFT287Exception;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -102,31 +104,31 @@ public class JardinHelper
     {
         if(session == null)
             return false;
-        return session.getAttribute("biblioInterrogation") != null;
+        return session.getAttribute("jardinInterrogation") != null;
     }
     
-    public static void creerGestionnaire(ServletContext c, HttpSession s) throws SQLException, BiblioException
+    public static void creerGestionnaire(ServletContext c, HttpSession s) throws SQLException, BiblioException, IFT287Exception
     {
         String serveur = (String) c.getAttribute("serveur");
         String bd = (String) c.getAttribute("bd");
         String userIdBD = (String) c.getAttribute("user");
         String pass = (String) c.getAttribute("pass");
 
-        GestionBibliotheque biblioInterrogation = new GestionBibliotheque(serveur, bd, userIdBD, pass);
-        biblioInterrogation.getConnexion().setIsolationReadCommited();
-        s.setAttribute("biblioInterrogation", biblioInterrogation);
-        GestionBibliotheque biblioUpdate = new GestionBibliotheque(serveur, bd, userIdBD, pass);
-        s.setAttribute("biblioUpdate", biblioUpdate);
+        GestionJardin jardinInterrogation = new GestionJardin(serveur, bd, userIdBD, pass);
+        jardinInterrogation.getConnexion().setIsolationReadCommited();
+        s.setAttribute("jardinInterrogation", jardinInterrogation);
+        GestionJardin jardinUpdate = new GestionJardin(serveur, bd, userIdBD, pass);
+        s.setAttribute("jardinUpdate", jardinUpdate);
     }
     
-    public static GestionBibliotheque getBiblioInterro(HttpSession session)
+    public static GestionJardin getJardinInterro(HttpSession session)
     {
-        return (GestionBibliotheque)session.getAttribute("biblioInterrogation");
+        return (GestionJardin)session.getAttribute("jardinInterrogation");
     }
     
-    public static GestionBibliotheque getBiblioUpdate(HttpSession session)
+    public static GestionJardin getBiblioUpdate(HttpSession session)
     {
-        return (GestionBibliotheque)session.getAttribute("biblioUpdate");
+        return (GestionJardin)session.getAttribute("biblioUpdate");
     }
     
     

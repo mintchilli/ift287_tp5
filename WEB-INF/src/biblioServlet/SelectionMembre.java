@@ -7,7 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Bibliotheque.BiblioException;
-import Bibliotheque.GestionBibliotheque;
+import JardinCollectif.GestionJardin;
 
 /**
  * Classe traitant la requête provenant de la page selectionMembre.jsp
@@ -56,7 +56,7 @@ public class SelectionMembre extends HttpServlet
                 }
 
                 // vérifier existence du membre
-                GestionBibliotheque biblioInterrogation = (GestionBibliotheque)session.getAttribute("biblioInterrogation");
+                GestionJardin biblioInterrogation = (GestionJardin)session.getAttribute("biblioInterrogation");
                 if (!biblioInterrogation.getGestionMembre().existe(idMembreParam))
                     throw new BiblioException("Membre " + idMembre + " inexistant.");
 

@@ -7,7 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Bibliotheque.BiblioException;
-import Bibliotheque.GestionBibliotheque;
+import JardinCollectif.GestionJardin;
 
 /**
  * Classe traitant la requête provenant de la page selectionMembre.jsp
@@ -56,20 +56,15 @@ public class SelectionMembre extends HttpServlet
                 }
 
                 // vérifier existence du membre
-                GestionBibliotheque biblioInterrogation = (GestionBibliotheque)session.getAttribute("biblioInterrogation");
-                if (!biblioInterrogation.getGestionMembre().existe(idMembreParam))
-                    throw new BiblioException("Membre " + idMembre + " inexistant.");
+                GestionJardin biblioInterrogation = (GestionJardin)session.getAttribute("biblioInterrogation");
+                //if (!biblioInterrogation.getGestionMembre().existe(idMembreParam))
+                    //throw new BiblioException("Membre " + idMembre + " inexistant.");
 
                 // transfert de la requête à la page JSP pour affichage
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listePretMembre.jsp");
                 dispatcher.forward(request, response);
                 session.setAttribute("etat", new Integer(BiblioConstantes.MEMBRE_SELECTIONNE));
             }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
         catch (BiblioException e)
         {

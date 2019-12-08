@@ -1,4 +1,5 @@
-<%@ page import="java.util.*,java.text.*,biblioServlet.*,Bibliotheque.*"
+<%@page import="jardinCollectifServlet.JardinHelper"%>
+<%@ page import="java.util.*,java.text.*,jardinCollectifServlet.*,JardinCollectif.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
 <body>
 	<div class="container">
 		<jsp:include page="/WEB-INF/navigation.jsp" />
-		<h1 class="text-center">Système de gestion de la bibliothèque</h1>
+		<h1 class="text-center">Système de gestion du Jardin Collectif</h1>
 
 <%
 		    if (session.getAttribute("admin") != null)
@@ -34,109 +35,36 @@
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col">Utilisateur</th>
+						<th scope="col">Prenom</th>
 						<th scope="col">Nom</th>
-						<th scope="col">Téléphone</th>
+						<th scope="col">Est Administrateur</th>
 					</tr>
 				</thead>
 				<tbody>
 <%
-					    List<TupleMembre> membres = BiblioHelper.getBiblioInterro(session).getGestionMembre()
-					                .getListeMembres(false);
-					        for (TupleMembre m : membres)
+					    List<Membre> membres = JardinHelper.getJardinInterro(session).getGestionMembre()
+					                .getMembres();
+					        for (Membre m : membres)
 					        {
 %>
 					<tr>
-						<td><%=m.getUtilisateurName()%></td>
+						<td><%=m.getPrenom()%></td>
 						<td><%=m.getNom()%></td>
-						<td><%=m.getTelephone()%></td>
+						<td><%=m.getIsAdmin()%></td>
 					<tr>
 					<tr>
 						<td></td>
 						<td colspan="2">
-<%
-							    GestionBibliotheque b = BiblioHelper.getBiblioInterro(session);
-							    List<TupleLivre> livres = b.getGestionInterrogation().listerLivresRetard(m.getUtilisateurName(),
-							                    new Date().toString());
-							    if (livres.size() == 0)
-							    {
-%> 
-									Aucun retard
-<%
-							    }
-							    else
-							    {
-%>
-							<table class="table">
-								<thead class="thead-dark">
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Titre</th>
-										<th scope="col">Date de prêt</th>
-									</tr>
-								</thead>
-								<tbody>
-<%
-									    for (TupleLivre l : livres)
-									    {
-%>
-									<tr>
-										<th scope="row"><%=l.getIdLivre()%></th>
-										<td><%=l.getTitre()%></td>
-										<td><%=l.getDatePret().toString()%></td>
-									</tr>
-<%
-									    } // end for chaque livre en retard
-%>
-								</tbody>
-							</table>
-<%
-     							} // end else livre en retard
+<% 
          					} // end for all members
- %>
+%>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 <%
-		    } // end if admin
-		    else
-		    {
-		        GestionBibliotheque b = BiblioHelper.getBiblioInterro(session);
-			    List<TupleLivre> livres = b.getGestionInterrogation().listerLivresMembre((String)session.getAttribute("userID"));
-%>
-		        <h3 class="text-center">Mes livres</h3>
-		<div class="col-8 offset-2">
-			<table class="table">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Titre</th>
-						<th scope="col">Auteur</th>
-						<th scope="col">Date de prêt</th>
-					</tr>
-				</thead>
-				<tbody>
-<%
-					for(TupleLivre l : livres)
-					{
-%>
-					<tr>
-						<td><%= l.getIdLivre() %></td>
-						<td><%= l.getTitre() %></td>
-						<td><%= l.getAuteur() %></td>
-						<td><%= l.getDatePret().toString() %></td>
-					</tr>
-<%
-					}
-%>
-				</tbody>
-			</table>
-		</div>
-<%
-		        
-		    }
+	} // end if admin
 %>
 
 		<br>

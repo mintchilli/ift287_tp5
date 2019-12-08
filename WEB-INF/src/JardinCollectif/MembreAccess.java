@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MembreAccess {
 
@@ -136,6 +135,37 @@ public class MembreAccess {
 			return null;
 		}
 	}
+	
+	public ArrayList<Membre> getMembres() {
+		try {
+			PreparedStatement s = conn.getConnection().prepareStatement("SELECT * FROM membre;");
+
+			s.execute();
+			ResultSet rs = s.getResultSet();
+
+			ArrayList<Membre> ret = new ArrayList<Membre>();
+
+			while (rs.next()) {
+				Membre m = new Membre();
+				m.setPrenom(rs.getString("prenom"));
+				m.setNom(rs.getString("nom"));
+				if (rs.getBoolean("isadmin"))
+					m.setIsAdmin(true);
+				else
+					m.setIsAdmin(false);
+				m.setPassword(rs.getString("motdepasse"));
+				m.setId(rs.getInt("nomembre"));
+
+				ret.add(m);
+			}
+
+			return ret;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public String getMembre(int noMembre) {
 		try {
@@ -167,5 +197,38 @@ public class MembreAccess {
 			return null;
 		}
 	}
+	
+    public boolean informationsConnexionValide(String prenom, String nom, String motDePasse) 
+            throws SQLException, IFT287Exception
+    {
+        try
+        {
+        	
+        	PreparedStatement s = conn.getConnection().prepareStatement("SELECT * FROM membre WHERE prenom = ? AND nom = ? AND motdepasse = ?");
+        	
+			s.setString(1, prenom);
+			s.setString(2, nom);
+			s.setString(3, motDePasse);
+			s.execute();
+			
+			ResultSet rs = s.getResultSet();
+			rs.next();
+			
+			Membre m = new Membre(rs.getString("prenom"), rs.getString("nom"), rs.getString("motdepasse"), rs.getInt("nomembre"));
+            // Vérifie si le membre existe déja
+            if (m.getId() == null)
+                throw new IFT287Exception("Aucun utilisateur n'existe avec ce nom.");
+
+
+            if(!m.getPassword().equals(motDePasse))
+                throw new IFT287Exception("Mauvais mot de passe.");
+            
+            return true;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
 
 }

@@ -16,6 +16,8 @@ public class Membre {
 		this.noMembre = noMembre;
 		this.estAdmin = false;
 	}
+	public Membre() {
+	}
 
 
 	public Integer getId() {

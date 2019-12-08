@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Bibliotheque.BiblioException;
-import Bibliotheque.GestionBibliotheque;
+import JardinCollectif.GestionJardin;
 
 /**
  * Servlet qui gère la connexion d'un utilisateur au système de gestion de
@@ -59,7 +59,7 @@ public class Accueil extends HttpServlet
                     String motDePasse = request.getParameter("motDePasse");
 
                     request.setAttribute("prenom", prenom);
-                    request.setAttribute("nom", prenom);
+                    request.setAttribute("nom", nom);
                     request.setAttribute("motDePasse", motDePasse);
                                         
                     if (prenom == null || prenom.equals(""))
@@ -69,9 +69,8 @@ public class Accueil extends HttpServlet
                     if (motDePasse == null || motDePasse.equals(""))
                         throw new BiblioException("Le mot de passe ne peut pas être nul!");
 
-//                    if (JardinHelper.getBiblioInterro(session).getGestionMembre().informationsConnexionValide(prenom,
-//                            motDePasse))
-                    if (true)
+                    if (JardinHelper.getJardinInterro(session).getGestionMembre().informationsConnexionValide(prenom, nom,
+                            motDePasse))
                     {
                         session.setAttribute("prenom", prenom);
                         session.setAttribute("nom", prenom);
@@ -107,39 +106,34 @@ public class Accueil extends HttpServlet
                     // lecture des paramètres du formulaire de creerCompte.jsp
                     String userId = request.getParameter("userId");
                     String motDePasse = request.getParameter("motDePasse");
-                    String telephoneS = request.getParameter("telephone");
+                    String prenom = request.getParameter("prenom");
                     String nom = request.getParameter("nom");
 
                     request.setAttribute("userId", userId);
                     request.setAttribute("motDePasse", motDePasse);
-                    request.setAttribute("telephone", telephoneS);
+                    request.setAttribute("prenom", prenom);
                     request.setAttribute("nom", nom);
                     
                     if (userId == null || userId.equals(""))
                         throw new BiblioException("Vous devez entrer un nom d'utilisateur!");
                     if (motDePasse == null || motDePasse.equals(""))
                         throw new BiblioException("Vous devez entrer un mot de passe!");
-                    if (telephoneS == null || telephoneS.equals(""))
-                        throw new BiblioException("Vous devez entrer un numéro de téléphone!");
+                    if (prenom == null || prenom.equals(""))
+                        throw new BiblioException("Vous devez entrer un prenom!");
                     if (nom == null || nom.equals(""))
                         throw new BiblioException("Vous devez entrer un nom!");
 
-                    long telephone = JardinHelper.ConvertirLong(telephoneS, "Le numéro de téléphone");
 
                     String accesS = request.getParameter("acces");
                     int acces = 1;
                     if (accesS != null)
                         acces = JardinHelper.ConvertirInt(accesS, "Le niveau d'accès");
 
-                    String limitePretS = request.getParameter("limite");
-                    int limitePret = 5;
-                    if (limitePretS != null)
-                        limitePret = JardinHelper.ConvertirInt(limitePretS, "La limite de prêt");
 
-                    GestionBibliotheque biblioUpdate = JardinHelper.getBiblioUpdate(session);
+                    GestionJardin biblioUpdate = JardinHelper.getBiblioUpdate(session);
                     synchronized (biblioUpdate)
                     {
-                        biblioUpdate.getGestionMembre().inscrire(userId, motDePasse, acces, nom, telephone, limitePret);
+                        biblioUpdate.getGestionMembre().inscrireMembre(prenom, nom, motDePasse);
                     }
 
                     // S'il y a déjà un userID dans la session, c'est parce

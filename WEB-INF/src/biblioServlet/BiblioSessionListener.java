@@ -2,7 +2,7 @@ package biblioServlet;
 
 import javax.servlet.http.*;
 
-import Bibliotheque.GestionBibliotheque;
+import JardinCollectif.GestionJardin;
 
 import java.sql.*;
 
@@ -23,7 +23,7 @@ public class BiblioSessionListener implements HttpSessionListener
     {
         System.out.println("Session détruite pour l'utilisateur " + se.getSession().getAttribute("userID"));
         
-        GestionBibliotheque biblioInterrogation = (GestionBibliotheque)se.getSession().getAttribute("biblioInterrogation");
+        GestionJardin biblioInterrogation = (GestionJardin)se.getSession().getAttribute("biblioInterrogation");
         if (biblioInterrogation != null)
         {
             try
@@ -42,7 +42,7 @@ public class BiblioSessionListener implements HttpSessionListener
             System.out.println("Aucun gestionnaire d'interrogation n'avait encore été créé.");
         }
         
-        GestionBibliotheque biblioUpdate = (GestionBibliotheque)se.getSession().getAttribute("biblioUpdate");
+        GestionJardin biblioUpdate = (GestionJardin)se.getSession().getAttribute("biblioUpdate");
         if (biblioUpdate != null)
         {
             try

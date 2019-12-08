@@ -8,7 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Bibliotheque.BiblioException;
-import Bibliotheque.GestionBibliotheque;
+import JardinCollectif.GestionJardin;
 
 /**
  * Classe traitant la requête provenant de la page listePretMembre.jsp
@@ -63,7 +63,7 @@ public class ListePretMembre extends HttpServlet
                 throw new BiblioException("Aucun prêt sélectionné");
             int idLivre = Integer.parseInt(request.getParameter("pretSelectionne"));
             String dateRetour = (new Date(System.currentTimeMillis())).toString();
-            GestionBibliotheque biblioUpdate = (GestionBibliotheque) request.getSession().getAttribute("biblioUpdate");
+            GestionJardin biblioUpdate = (GestionJardin) request.getSession().getAttribute("biblioUpdate");
             // exécuter la maj en utilisant synchronized pour s'assurer
             // que le thread du servlet est le seul à exécuter une transaction
             // sur biblio
@@ -98,7 +98,7 @@ public class ListePretMembre extends HttpServlet
                 throw new BiblioException("Aucun prêt sélectionné");
             int idLivre = Integer.parseInt(request.getParameter("pretSelectionne"));
             String datePret = (new Date(System.currentTimeMillis())).toString();
-            GestionBibliotheque biblioUpdate = (GestionBibliotheque) request.getSession().getAttribute("biblioUpdate");
+            GestionJardin biblioUpdate = (GestionJardin) request.getSession().getAttribute("biblioUpdate");
             synchronized (biblioUpdate)
             {
                 biblioUpdate.getGestionPret().renouveler(idLivre, datePret);

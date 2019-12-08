@@ -1,6 +1,17 @@
-package Bibliotheque;
+package JardinCollectif;
 
 import java.sql.*;
+
+import Bibliotheque.BiblioException;
+import JardinCollectif.Connexion;
+import Bibliotheque.GestionInterrogation;
+import Bibliotheque.GestionLivre;
+import Bibliotheque.GestionMembre;
+import Bibliotheque.GestionPret;
+import Bibliotheque.GestionReservation;
+import Bibliotheque.TableLivres;
+import Bibliotheque.TableMembres;
+import Bibliotheque.TableReservations;
 
 /**
  * Système de gestion d'une bibliothèque
@@ -29,14 +40,14 @@ import java.sql.*;
  *   transaction
  * </pre>
  */
-public class GestionBibliotheque
+public class GestionJardin
 {
     private Connexion cx;
     private TableLivres livre;
     private TableMembres membre;
     private TableReservations reservation;
     private GestionLivre gestionLivre;
-    private GestionMembre gestionMembre;
+    private MembreAccess gestionMembre;
     private GestionPret gestionPret;
     private GestionReservation gestionReservation;
     private GestionInterrogation gestionInterrogation;
@@ -52,20 +63,21 @@ public class GestionBibliotheque
      * @param user user id pour établir une connexion avec le serveur SQL
      * @param password mot de passe pour le user id
      * </pre>
+     * @throws IFT287Exception 
      */
-    public GestionBibliotheque(String serveur, String bd, String user, String password)
-            throws BiblioException, SQLException
+    public GestionJardin(String serveur, String bd, String user, String password)
+            throws BiblioException, SQLException, IFT287Exception
     {
         // allocation des objets pour le traitement des transactions
         cx = new Connexion(serveur, bd, user, password);
-        livre = new TableLivres(getConnexion());
-        membre = new TableMembres(getConnexion());
-        reservation = new TableReservations(getConnexion());
-        setGestionLivre(new GestionLivre(livre, reservation));
-        setGestionMembre(new GestionMembre(membre, reservation));
-        setGestionPret(new GestionPret(livre, membre, reservation));
-        setGestionReservation(new GestionReservation(livre, membre, reservation));
-        setGestionInterrogation(new GestionInterrogation(getConnexion()));
+        //livre = new TableLivres(getConnexion());
+        //membre = new TableMembres(getConnexion());
+        //reservation = new TableReservations(getConnexion());
+        //setGestionLivre(new GestionLivre(livre, reservation));
+        setGestionMembre(new MembreAccess(cx));
+        //setGestionPret(new GestionPret(livre, membre, reservation));
+        //setGestionReservation(new GestionReservation(livre, membre, reservation));
+        //setGestionInterrogation(new GestionInterrogation(getConnexion()));
     }
 
     public void fermer() throws SQLException
@@ -101,7 +113,7 @@ public class GestionBibliotheque
     /**
      * @return the gestionMembre
      */
-    public GestionMembre getGestionMembre()
+    public MembreAccess getGestionMembre()
     {
         return gestionMembre;
     }
@@ -109,7 +121,7 @@ public class GestionBibliotheque
     /**
      * @param gestionMembre the gestionMembre to set
      */
-    private void setGestionMembre(GestionMembre gestionMembre)
+    private void setGestionMembre(MembreAccess gestionMembre)
     {
         this.gestionMembre = gestionMembre;
     }
