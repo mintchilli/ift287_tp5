@@ -112,17 +112,14 @@ public class Accueil extends HttpServlet
                 {
                     // lecture des paramètres du formulaire de creerCompte.jsp
                     String userId = request.getParameter("userId");
-                    String motDePasse = request.getParameter("motDePasse");
                     String prenom = request.getParameter("prenom");
+                    String motDePasse = request.getParameter("motDePasse");
                     String nom = request.getParameter("nom");
 
-                    request.setAttribute("userId", userId);
-                    request.setAttribute("motDePasse", motDePasse);
                     request.setAttribute("prenom", prenom);
+                    request.setAttribute("motDePasse", motDePasse);
                     request.setAttribute("nom", nom);
                     
-                    if (userId == null || userId.equals(""))
-                        throw new BiblioException("Vous devez entrer un nom d'utilisateur!");
                     if (motDePasse == null || motDePasse.equals(""))
                         throw new BiblioException("Vous devez entrer un mot de passe!");
                     if (prenom == null || prenom.equals(""))
@@ -132,25 +129,26 @@ public class Accueil extends HttpServlet
 
 
                     String accesS = request.getParameter("acces");
-                    int acces = 1;
+                    boolean acces = false;
                     if (accesS != null)
-                        acces = JardinHelper.ConvertirInt(accesS, "Le niveau d'accès");
+                        acces = Boolean.parseBoolean(accesS);
 
                     String motDePasseEncrypte = toHexString(getSHA(motDePasse));
                     
-                    GestionJardin biblioUpdate = JardinHelper.getBiblioUpdate(session);
-                    synchronized (biblioUpdate)
+                    GestionJardin jardinUpdate = JardinHelper.getJardinUpdate(session);
+                    synchronized (jardinUpdate)
                     {
-                        biblioUpdate.getGestionMembre().inscrireMembre(prenom, nom, motDePasseEncrypte);
+                        jardinUpdate.getGestionMembre().inscrireMembre(prenom, nom, motDePasseEncrypte, acces);
+                        JardinHelper.getJardinInterro(session).getConnexion().commit();
                     }
 
                     // S'il y a déjà un userID dans la session, c'est parce
                     // qu'on est admin et qu'on inscrit un nouveau membre
-                    if (session.getAttribute("userID") == null)
+                    if (session.getAttribute("prenom") == null)
                     {
                         session.setAttribute("userID", userId);
-                        if(acces == 0)
-                            session.setAttribute("admin", acces == 0);
+                        if(acces == true)
+                            session.setAttribute("admin", acces == true);
                         session.setAttribute("etat", new Integer(BiblioConstantes.CONNECTE));
 
                         System.out.println("Servlet Accueil : POST dispatch vers accueil.jsp");

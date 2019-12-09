@@ -13,16 +13,17 @@ public class MembreAccess {
 		conn = cx;
 	}
 
-	public boolean inscrireMembre(String prenom, String nom, String motDePasse) {
+	public boolean inscrireMembre(String prenom, String nom, String motDePasse, boolean acces) {
 		try {
 			PreparedStatement s = conn.getConnection()
-					.prepareStatement("insert into Membre(nom, prenom, nomutilisateur, motDePasse) values(?,?,?,?)");
+					.prepareStatement("insert into Membre(nom, prenom, motDePasse, estAdmin) values(?,?,?,?)");
 			s.setString(1, nom);
 			s.setString(2, prenom);
-			s.setString(3, prenom+nom);
-			s.setString(4, motDePasse);
+			s.setString(3, motDePasse);
+			s.setBoolean(4, acces);
 
 			s.execute();
+			conn.commit();
 
 			return true;
 

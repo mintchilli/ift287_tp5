@@ -126,9 +126,9 @@ public class JardinHelper
         return (GestionJardin)session.getAttribute("jardinInterrogation");
     }
     
-    public static GestionJardin getBiblioUpdate(HttpSession session)
+    public static GestionJardin getJardinUpdate(HttpSession session)
     {
-        return (GestionJardin)session.getAttribute("biblioUpdate");
+        return (GestionJardin)session.getAttribute("jardinUpdate");
     }
     
     

@@ -3,7 +3,7 @@ CREATE TABLE Membre(
   nom varchar,
   prenom varchar,
   motDePasse varchar,
-  estAdmin boolean DEFAULT false,
+  estAdmin boolean DEFAULT false
   );
   
   CREATE TABLE Lot(
@@ -33,4 +33,4 @@ CREATE TABLE Membre(
   );
   
   INSERT INTO Membre (nom, prenom, motDePasse, estAdmin)
-  VALUES ("admin", "admin", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", true);
+  VALUES ('admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', true);
