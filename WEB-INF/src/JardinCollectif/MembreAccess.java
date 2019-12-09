@@ -149,7 +149,7 @@ public class MembreAccess {
 				Membre m = new Membre();
 				m.setPrenom(rs.getString("prenom"));
 				m.setNom(rs.getString("nom"));
-				if (rs.getBoolean("isadmin"))
+				if (rs.getBoolean("estadmin"))
 					m.setIsAdmin(true);
 				else
 					m.setIsAdmin(false);

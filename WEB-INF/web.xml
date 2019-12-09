@@ -45,7 +45,11 @@
   </servlet>
   <servlet>
     <servlet-name>Inscription</servlet-name>
-    <servlet-class>biblioServlet.Inscription</servlet-class>
+    <servlet-class>jardinCollectifServlet.Inscription</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>SuppressionMembre</servlet-name>
+    <servlet-class>jardinCollectifServlet.SuppressionMembre</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
@@ -62,5 +66,9 @@
   <servlet-mapping>
     <servlet-name>Inscription</servlet-name>
     <url-pattern>/Inscription</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>SuppressionMembre</servlet-name>
+    <url-pattern>/SuppressionMembre</url-pattern>
   </servlet-mapping>
 </web-app>

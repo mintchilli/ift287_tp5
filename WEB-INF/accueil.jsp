@@ -1,5 +1,6 @@
 <%@page import="jardinCollectifServlet.JardinHelper"%>
-<%@ page import="java.util.*,java.text.*,jardinCollectifServlet.*,JardinCollectif.*"
+<%@ page
+	import="java.util.*,java.text.*,jardinCollectifServlet.*,JardinCollectif.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,11 +27,8 @@
 		<jsp:include page="/WEB-INF/navigation.jsp" />
 		<h1 class="text-center">Système de gestion du Jardin Collectif</h1>
 
-<%
-		    if (session.getAttribute("admin") != null)
-		    {
-%>
-		<h3 class="text-center">Retard</h3>
+
+		<h3 class="text-center">Membres</h3>
 		<div class="col-8 offset-2">
 			<table class="table">
 				<thead class="thead-dark">
@@ -38,34 +36,47 @@
 						<th scope="col">Prenom</th>
 						<th scope="col">Nom</th>
 						<th scope="col">Est Administrateur</th>
+						<th scope="col">Supprimer</th>
 					</tr>
 				</thead>
 				<tbody>
-<%
-					    List<Membre> membres = JardinHelper.getJardinInterro(session).getGestionMembre()
-					                .getMembres();
-					        for (Membre m : membres)
-					        {
-%>
+					<%
+					    List<Membre> membres = JardinHelper.getJardinInterro(session).getGestionMembre().getMembres();
+					    for (Membre m : membres)
+					    {
+					%>
 					<tr>
 						<td><%=m.getPrenom()%></td>
 						<td><%=m.getNom()%></td>
 						<td><%=m.getIsAdmin()%></td>
+						<%
+						    if (session.getAttribute("admin") != null)
+						        {
+						%>
+						<td>
+							<form name="SupprimerForm" method="post"
+								action="SuppressionMembre">
+								<input type="hidden" name="idMembre" id="idMembre" value="<%=m.getId()%>" />  
+								<input class="btn btn-primary" type="SUBMIT" name="supprimer" value="supprimer">
+							</form>
+						</td>
+						<%
+						    } // end if admin
+						%>
+					
 					<tr>
 					<tr>
 						<td></td>
 						<td colspan="2">
-<% 
-         					} // end for all members
-%>
+							<%
+							    } // end for all members
+							%>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-<%
-	} // end if admin
-%>
+
 
 		<br>
 		<%-- inclusion d'une autre page pour l'affichage des messages d'erreur--%>
