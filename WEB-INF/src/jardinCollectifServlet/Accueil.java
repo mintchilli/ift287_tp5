@@ -2,6 +2,11 @@ package jardinCollectifServlet;
 
 import java.util.*;
 import java.io.*;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -68,9 +73,11 @@ public class Accueil extends HttpServlet
                         throw new BiblioException("Le nom ne peut pas être nul!");
                     if (motDePasse == null || motDePasse.equals(""))
                         throw new BiblioException("Le mot de passe ne peut pas être nul!");
+                    
+                    String motDePasseEncrypte = toHexString(getSHA(motDePasse));
 
                     if (JardinHelper.getJardinInterro(session).getGestionMembre().informationsConnexionValide(prenom, nom,
-                            motDePasse))
+                            motDePasseEncrypte))
                     {
                         session.setAttribute("prenom", prenom);
                         session.setAttribute("nom", prenom);
@@ -129,11 +136,12 @@ public class Accueil extends HttpServlet
                     if (accesS != null)
                         acces = JardinHelper.ConvertirInt(accesS, "Le niveau d'accès");
 
-
+                    String motDePasseEncrypte = toHexString(getSHA(motDePasse));
+                    
                     GestionJardin biblioUpdate = JardinHelper.getBiblioUpdate(session);
                     synchronized (biblioUpdate)
                     {
-                        biblioUpdate.getGestionMembre().inscrireMembre(prenom, nom, motDePasse);
+                        biblioUpdate.getGestionMembre().inscrireMembre(prenom, nom, motDePasseEncrypte);
                     }
 
                     // S'il y a déjà un userID dans la session, c'est parce
@@ -195,6 +203,34 @@ public class Accueil extends HttpServlet
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
             dispatcher.forward(request, response);
         }
+    }
+    
+    public static byte[] getSHA(String input) throws NoSuchAlgorithmException 
+    {  
+        // Static getInstance method is called with hashing SHA  
+        MessageDigest md = MessageDigest.getInstance("SHA-256");  
+  
+        // digest() method called  
+        // to calculate message digest of an input  
+        // and return array of byte 
+        return md.digest(input.getBytes(StandardCharsets.UTF_8));  
+    } 
+    
+    public static String toHexString(byte[] hash) 
+    { 
+        // Convert byte array into signum representation  
+        BigInteger number = new BigInteger(1, hash);  
+  
+        // Convert message digest into hex value  
+        StringBuilder hexString = new StringBuilder(number.toString(16));  
+  
+        // Pad with leading zeros 
+        while (hexString.length() < 32)  
+        {  
+            hexString.insert(0, '0');  
+        }  
+  
+        return hexString.toString();  
     }
 
 } // class

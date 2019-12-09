@@ -2,6 +2,10 @@ package jardinCollectifServlet;
 
 import java.util.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
