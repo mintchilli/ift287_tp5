@@ -168,21 +168,20 @@ public class LotAccess {
 		}
 	}
 
-	public ArrayList<String> getLots() {
+	public ArrayList<Lot> getLots() {
 		try {
 			PreparedStatement s = conn.getConnection().prepareStatement("SELECT nomlot, nomaxmembre FROM lot");
 
 			s.execute();
 			ResultSet rs = s.getResultSet();
 
-			ArrayList<String> ret = new ArrayList<String>();
+			ArrayList<Lot> ret = new ArrayList<Lot>();
 
 			while (rs.next()) {
-				String data = "";
-				data += rs.getString("nomlot");
-				data += ",";
-				data += rs.getString("nomaxmembre");
-				ret.add(data);
+			    Lot l = new Lot();
+				l.setNomLot(rs.getString("nomlot"));
+				l.setNoMaxMembre(rs.getInt("nomaxmembre"));
+				ret.add(l);
 			}
 
 			return ret;

@@ -16,11 +16,11 @@ public class Membre {
 		this.noMembre = noMembre;
 		this.estAdmin = false;
 	}
-	public Membre() {
-	}
 
-
-	public Integer getId() {
+	public Membre()
+    {
+    }
+    public Integer getId() {
 		return noMembre;
 	}
 

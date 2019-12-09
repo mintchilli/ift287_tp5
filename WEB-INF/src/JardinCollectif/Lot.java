@@ -13,7 +13,12 @@ public class Lot {
 		this.noMaxMembre = noMaxMembre;
 	}
 
-	public String getIdLot() {
+	public Lot()
+    {
+        // TODO Auto-generated constructor stub
+    }
+
+    public String getIdLot() {
 		return idLot;
 	}
 

@@ -43,14 +43,9 @@ import Bibliotheque.TableReservations;
 public class GestionJardin
 {
     private Connexion cx;
-    private TableLivres livre;
-    private TableMembres membre;
-    private TableReservations reservation;
-    private GestionLivre gestionLivre;
+    private LotAccess gestionLot;
     private MembreAccess gestionMembre;
-    private GestionPret gestionPret;
-    private GestionReservation gestionReservation;
-    private GestionInterrogation gestionInterrogation;
+    private PlanteAccess gestionPlante;
 
     /**
      * Ouvre une connexion avec la BD relationnelle et alloue les gestionnaires
@@ -70,14 +65,10 @@ public class GestionJardin
     {
         // allocation des objets pour le traitement des transactions
         cx = new Connexion(serveur, bd, user, password);
-        //livre = new TableLivres(getConnexion());
-        //membre = new TableMembres(getConnexion());
-        //reservation = new TableReservations(getConnexion());
-        //setGestionLivre(new GestionLivre(livre, reservation));
+
         setGestionMembre(new MembreAccess(cx));
-        //setGestionPret(new GestionPret(livre, membre, reservation));
-        //setGestionReservation(new GestionReservation(livre, membre, reservation));
-        //setGestionInterrogation(new GestionInterrogation(getConnexion()));
+        setGestionLot(new LotAccess(cx));
+        setGestionPlante(new PlanteAccess(cx));
     }
 
     public void fermer() throws SQLException
@@ -94,22 +85,6 @@ public class GestionJardin
 		return cx;
 	}
 
-	/**
-     * @return the gestionLivre
-     */
-    public GestionLivre getGestionLivre()
-    {
-        return gestionLivre;
-    }
-
-    /**
-     * @param gestionLivre the gestionLivre to set
-     */
-    private void setGestionLivre(GestionLivre gestionLivre)
-    {
-        this.gestionLivre = gestionLivre;
-    }
-
     /**
      * @return the gestionMembre
      */
@@ -125,52 +100,24 @@ public class GestionJardin
     {
         this.gestionMembre = gestionMembre;
     }
-
-    /**
-     * @return the gestionPret
-     */
-    public GestionPret getGestionPret()
+    
+    public LotAccess getGestionLot() 
     {
-        return gestionPret;
+        return gestionLot;
+    }
+    
+    private void setGestionLot(LotAccess gestionLot)
+    {
+        this.gestionLot = gestionLot;
     }
 
-    /**
-     * @param gestionPret the gestionPret to set
-     */
-    private void setGestionPret(GestionPret gestionPret)
+    public PlanteAccess getGestionPlante() 
     {
-        this.gestionPret = gestionPret;
+        return gestionPlante;
     }
-
-    /**
-     * @return the gestionReservation
-     */
-    public GestionReservation getGestionReservation()
+    
+    private void setGestionPlante(PlanteAccess gestionPlante)
     {
-        return gestionReservation;
-    }
-
-    /**
-     * @param gestionReservation the gestionReservation to set
-     */
-    private void setGestionReservation(GestionReservation gestionReservation)
-    {
-        this.gestionReservation = gestionReservation;
-    }
-
-    /**
-     * @return the gestionInterrogation
-     */
-    public GestionInterrogation getGestionInterrogation()
-    {
-        return gestionInterrogation;
-    }
-
-    /**
-     * @param gestionInterrogation the gestionInterrogation to set
-     */
-    private void setGestionInterrogation(GestionInterrogation gestionInterrogation)
-    {
-        this.gestionInterrogation = gestionInterrogation;
+        this.gestionPlante = gestionPlante;
     }
 }

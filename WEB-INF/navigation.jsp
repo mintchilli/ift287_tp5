@@ -9,7 +9,8 @@
 	<%
 	    }
 	%>
-			<li><a class="nav-item nav-link" href="#">Gérer les livres</a></li>
+			<li><a class="nav-item nav-link" href="Lots">Lots</a></li>
+			<li><a class="nav-item nav-link" href="Plantes">Plantes</a></li>
 		</ul>
 		</div>
 		<div class="navbar-collapse collapse justify-content-end">

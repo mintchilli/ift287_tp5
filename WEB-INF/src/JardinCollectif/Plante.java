@@ -15,7 +15,13 @@ public class Plante {
 	}
 	
 
-	public String getIdPlante() {
+	public Plante()
+    {
+        // TODO Auto-generated constructor stub
+    }
+
+
+    public String getIdPlante() {
 		return idPlante;
 	}
 

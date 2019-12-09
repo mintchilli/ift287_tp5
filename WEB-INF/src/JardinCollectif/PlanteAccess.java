@@ -209,24 +209,23 @@ public class PlanteAccess {
 		return null;
 	}
 	
-	public ArrayList<String> getPlantesList() {
+	public ArrayList<Plante> getPlantesList() {
 		try {
 			PreparedStatement s = conn.getConnection()
-					.prepareStatement("SELECT DISTINCT idplante FROM plantelot");
+					.prepareStatement("SELECT idPlante, nomPlante, tempsCulture FROM Plante");
 			s.execute();
 			ResultSet rs = s.getResultSet();
-			ArrayList<String> ret = new ArrayList<String>();
+			ArrayList<Plante> ret = new ArrayList<Plante>();
 			
 			while (rs.next()) {
+				int idPlante = rs.getInt("idPlante");
+				Plante p = new Plante();
 				
-				int idPlante = rs.getInt("idplante");
+				p.setIdPlante(Integer.toString(rs.getInt("idPlante")));
+				p.setNomPlante(rs.getString("nomPlante"));
+				p.setTempsCulture(rs.getInt("tempsCulture"));
 				
-				String data = "Plante : ";
-				data += getPlanteNom(idPlante);
-				data += ", Nombre d'exemplaires : ";
-				data += Integer.toString(getPlanteNbrTotal(idPlante));
-				
-				ret.add(data);
+				ret.add(p);
 			}
 
 			return ret;

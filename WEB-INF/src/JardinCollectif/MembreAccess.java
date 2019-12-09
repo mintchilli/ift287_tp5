@@ -54,6 +54,8 @@ public class MembreAccess {
 					.prepareStatement("UPDATE membre SET estadmin = 'true' WHERE nomembre = ?");
 			s.setInt(1, noMembre);
 			s.execute();
+			conn.commit();
+			
 			return true;
 
 		} catch (SQLException e) {
