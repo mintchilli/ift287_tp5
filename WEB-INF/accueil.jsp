@@ -37,6 +37,14 @@
 						<th scope="col">Nom</th>
 						<th scope="col">Est Administrateur</th>
 						<th scope="col">Supprimer</th>
+						<%
+						    if (session.getAttribute("admin") != null)
+						    {
+						%>
+						<th>promouvoir administrateur</th>
+						<%
+						    }
+						%>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,8 +64,25 @@
 						<td>
 							<form name="SupprimerForm" method="post"
 								action="SuppressionMembre">
-								<input type="hidden" name="idMembre" id="idMembre" value="<%=m.getId()%>" />  
-								<input class="btn btn-primary" type="SUBMIT" name="supprimer" value="supprimer">
+								<input type="hidden" name="idMembre" id="idMembre"
+									value="<%=m.getId()%>" /> <input class="btn btn-primary"
+									type="SUBMIT" name="supprimer" value="supprimer">
+							</form>
+						</td>
+						<%
+						    } // end if admin
+						%>
+
+						<%
+						    if (session.getAttribute("admin") != null && !m.getIsAdmin())
+						        {
+						%>
+						<td>
+							<form name="SupprimerForm" method="post"
+								action="PromouvoirAdministrateur">
+								<input type="hidden" name="idMembre" id="idMembre"
+									value="<%=m.getId()%>" /> <input class="btn btn-primary"
+									type="SUBMIT" name="PromouvoirAdministrateur" value="PromouvoirAdministrateur">
 							</form>
 						</td>
 						<%
