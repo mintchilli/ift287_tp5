@@ -2,16 +2,7 @@ package JardinCollectif;
 
 import java.sql.*;
 
-import Bibliotheque.BiblioException;
 import JardinCollectif.Connexion;
-import Bibliotheque.GestionInterrogation;
-import Bibliotheque.GestionLivre;
-import Bibliotheque.GestionMembre;
-import Bibliotheque.GestionPret;
-import Bibliotheque.GestionReservation;
-import Bibliotheque.TableLivres;
-import Bibliotheque.TableMembres;
-import Bibliotheque.TableReservations;
 
 /**
  * Système de gestion d'une bibliothèque
@@ -61,7 +52,7 @@ public class GestionJardin
      * @throws IFT287Exception 
      */
     public GestionJardin(String serveur, String bd, String user, String password)
-            throws BiblioException, SQLException, IFT287Exception
+            throws  SQLException, IFT287Exception
     {
         // allocation des objets pour le traitement des transactions
         cx = new Connexion(serveur, bd, user, password);

@@ -1,5 +1,4 @@
 package jardinCollectifServlet;
-import Bibliotheque.*;
 import JardinCollectif.GestionJardin;
 import JardinCollectif.IFT287Exception;
 
@@ -107,7 +106,7 @@ public class JardinHelper
         return session.getAttribute("jardinInterrogation") != null;
     }
     
-    public static void creerGestionnaire(ServletContext c, HttpSession s) throws SQLException, BiblioException, IFT287Exception
+    public static void creerGestionnaire(ServletContext c, HttpSession s) throws SQLException, IFT287Exception
     {
         String serveur = (String) c.getAttribute("serveur");
         String bd = (String) c.getAttribute("bd");
@@ -132,7 +131,7 @@ public class JardinHelper
     }
     
     
-    public static int ConvertirInt(String v, String nom) throws BiblioException
+    public static int ConvertirInt(String v, String nom) throws IFT287Exception
     {
         try
         {
@@ -140,11 +139,11 @@ public class JardinHelper
         }
         catch(Exception e)
         {
-            throw new BiblioException(nom + " ne doit être composé que de chiffre.");
+            throw new IFT287Exception(nom + " ne doit être composé que de chiffre.");
         }
     }
     
-    public static long ConvertirLong(String v, String nom) throws BiblioException
+    public static long ConvertirLong(String v, String nom) throws IFT287Exception
     {
         try
         {
@@ -152,7 +151,7 @@ public class JardinHelper
         }
         catch(Exception e)
         {
-            throw new BiblioException(nom + " ne doit être composé que de chiffre.");
+            throw new IFT287Exception(nom + " ne doit être composé que de chiffre.");
         }
     }
 }

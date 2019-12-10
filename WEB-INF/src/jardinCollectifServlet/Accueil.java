@@ -10,8 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import Bibliotheque.BiblioException;
 import JardinCollectif.GestionJardin;
+import JardinCollectif.IFT287Exception;
 
 /**
  * Servlet qui gère la connexion d'un utilisateur au système de gestion de
@@ -68,11 +68,11 @@ public class Accueil extends HttpServlet
                     request.setAttribute("motDePasse", motDePasse);
                                         
                     if (prenom == null || prenom.equals(""))
-                        throw new BiblioException("Le prenom ne peut pas être nul!");
+                        throw new IFT287Exception("Le prenom ne peut pas être nul!");
                     if (prenom == null || prenom.equals(""))
-                        throw new BiblioException("Le nom ne peut pas être nul!");
+                        throw new IFT287Exception("Le nom ne peut pas être nul!");
                     if (motDePasse == null || motDePasse.equals(""))
-                        throw new BiblioException("Le mot de passe ne peut pas être nul!");
+                        throw new IFT287Exception("Le mot de passe ne peut pas être nul!");
                     
                     String motDePasseEncrypte = toHexString(getSHA(motDePasse));
 
@@ -83,7 +83,7 @@ public class Accueil extends HttpServlet
                         session.setAttribute("nom", prenom);
                        // if(JardinHelper.getBiblioInterro(session).getGestionMembre().utilisateurEstAdministrateur(prenom))
                             session.setAttribute("admin", true);
-                        session.setAttribute("etat", new Integer(BiblioConstantes.CONNECTE));
+                        session.setAttribute("etat", new Integer(JardinConstante.CONNECTE));
 
                         System.out.println("Servlet Accueil : POST dispatch vers accueil.jsp");
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
@@ -91,7 +91,7 @@ public class Accueil extends HttpServlet
                     }
                     else
                     {
-                        throw new BiblioException("Les informations de connexion sont erronées.");
+                        throw new IFT287Exception("Les informations de connexion sont erronées.");
                     }
                 }
                 catch (Exception e)
@@ -121,11 +121,11 @@ public class Accueil extends HttpServlet
                     request.setAttribute("nom", nom);
                     
                     if (motDePasse == null || motDePasse.equals(""))
-                        throw new BiblioException("Vous devez entrer un mot de passe!");
+                        throw new IFT287Exception("Vous devez entrer un mot de passe!");
                     if (prenom == null || prenom.equals(""))
-                        throw new BiblioException("Vous devez entrer un prenom!");
+                        throw new IFT287Exception("Vous devez entrer un prenom!");
                     if (nom == null || nom.equals(""))
-                        throw new BiblioException("Vous devez entrer un nom!");
+                        throw new IFT287Exception("Vous devez entrer un nom!");
 
 
                     String accesS = request.getParameter("acces");
@@ -149,7 +149,7 @@ public class Accueil extends HttpServlet
                         session.setAttribute("userID", userId);
                         if(acces == true)
                             session.setAttribute("admin", acces == true);
-                        session.setAttribute("etat", new Integer(BiblioConstantes.CONNECTE));
+                        session.setAttribute("etat", new Integer(JardinConstante.CONNECTE));
 
                         System.out.println("Servlet Accueil : POST dispatch vers accueil.jsp");
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>IFT287 - Système de gestion de bibliothèque</title>
+		<title>IFT287 - Système de gestion de Jardin Collectif</title>
 		<meta name="author" content="Vincent Ducharme">
 		<meta name="description" content="Page d'accueil du système de gestion de la bilbiothèque.">
 		
@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="text-center">Système de gestion de la bibliothèque</h1>
+			<h1 class="text-center">Système de gestion de Jardin Collectif</h1>
 			<div class="col-md-4 offset-md-4">
 			<form action="Accueil" method="POST">
 			    <div class="form-group">

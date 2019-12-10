@@ -1,4 +1,4 @@
-package biblioServlet;
+package jardinCollectifServlet;
 
 import javax.servlet.http.*;
 
@@ -13,7 +13,7 @@ import java.sql.*;
  * Sherbrooke
  */
 
-public class BiblioSessionListener implements HttpSessionListener
+public class JardinSessionListener implements HttpSessionListener
 {
     public void sessionCreated(HttpSessionEvent se)
     {
@@ -23,13 +23,13 @@ public class BiblioSessionListener implements HttpSessionListener
     {
         System.out.println("Session détruite pour l'utilisateur " + se.getSession().getAttribute("userID"));
         
-        GestionJardin biblioInterrogation = (GestionJardin)se.getSession().getAttribute("biblioInterrogation");
-        if (biblioInterrogation != null)
+        GestionJardin jardinInterrogation = (GestionJardin)se.getSession().getAttribute("biblioInterrogation");
+        if (jardinInterrogation != null)
         {
             try
             {
                 System.out.println("Fermeture de la connexion d'interrogation...");
-                biblioInterrogation.fermer();
+                jardinInterrogation.fermer();
             }
             catch (SQLException e)
             {

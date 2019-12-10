@@ -48,7 +48,7 @@ public class ConnectionManager {
                     if(ma == null)
                     	ma = new MembreAccess(cx);
                     
-                    ma.inscrireMembre(prenom, nom, motDePasse);
+                    ma.inscrireMembre(prenom, nom, motDePasse, false);
 
                 }
                 else if (command.equals("supprimerMembre"))
@@ -220,7 +220,7 @@ public class ConnectionManager {
                 		pa = new PlanteAccess(cx);
                 	
                     PlantManager pm = new PlantManager(cx);
-                    jc.afficherPlantes(pa.getPlantesList());
+                   // jc.afficherPlantes(pa.getPlantesList());
                 }
                 else if (command.equals("afficherLots"))
                 {

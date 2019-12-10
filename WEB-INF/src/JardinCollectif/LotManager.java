@@ -50,7 +50,7 @@ public class LotManager {
 		Map<String, ArrayList<String>> ret = new HashMap<String, ArrayList<String>>();
 		
 		LotAccess la = new LotAccess(conn);
-		ArrayList<String> lots = la.getLots();
+		ArrayList<String> lots = new ArrayList<String>();
 		MembreAccess ma = new MembreAccess(conn);
 		
 		for (String lot : lots) {

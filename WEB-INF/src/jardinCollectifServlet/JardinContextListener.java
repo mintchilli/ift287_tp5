@@ -1,4 +1,4 @@
-package biblioServlet;
+package jardinCollectifServlet;
 
 import javax.servlet.*;
 import java.util.*;
@@ -10,11 +10,11 @@ import java.util.*;
  * Sherbrooke
  */
 
-public class BiblioContextListener implements ServletContextListener
+public class JardinContextListener implements ServletContextListener
 {
     public void contextInitialized(ServletContextEvent sce)
     {
-        System.out.println("Contexte de la bibliothèque WEB démarré : " + sce.getServletContext().getServletContextName());
+        System.out.println("Contexte du jardin collectif WEB démarré : " + sce.getServletContext().getServletContextName());
         System.out.println("Voici les paramètres du contexte tels que définis dans web.xml");
         Enumeration<String> initParams = sce.getServletContext().getInitParameterNames();
         while (initParams.hasMoreElements())
@@ -26,6 +26,6 @@ public class BiblioContextListener implements ServletContextListener
 
     public void contextDestroyed(ServletContextEvent sce)
     {
-        System.out.println("Le contexte de l'application GestionBibliotheque vient d'être détruit.");
+        System.out.println("Le contexte de l'application GestionJardin vient d'être détruit.");
     }
 }

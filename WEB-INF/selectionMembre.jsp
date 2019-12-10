@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE>Système de gestion de bibliothèque</TITLE>
+<TITLE>Système de gestion de Jardin Collectif</TITLE>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 <META NAME="author" CONTENT="Marc Frappier">
 <META NAME="description"
@@ -10,7 +10,7 @@ CONTENT="page d'accueil système de gestion de bilbiothèque.">
 </HEAD>
 <BODY>
 <CENTER>
-<H1>Système de gestion de bibliothèque</H1>
+<H1>Système de gestion de Jardin Collectif</H1>
 <FORM ACTION="SelectionMembre" METHOD="GET">
 No de membre : <INPUT TYPE="TEXT" NAME="idMembre"
 <% 

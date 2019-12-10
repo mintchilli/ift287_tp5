@@ -9,8 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import Bibliotheque.BiblioException;
-import Bibliotheque.Connexion;
+import JardinCollectif.Connexion;
+import JardinCollectif.IFT287Exception;
 
 /**
  * Servlet qui gère l'accès à la base de donnée
@@ -61,17 +61,17 @@ public class Login extends HttpServlet
             request.setAttribute("bd", bd);
                         
             if(userId == null || userId.equals(""))
-                throw new BiblioException("Vous devez entrer un nom d'utilisateur.");
+                throw new IFT287Exception("Vous devez entrer un nom d'utilisateur.");
             
             if(motDePasse == null || motDePasse.equals(""))
-                throw new BiblioException("Vous devez entrer un mot de passe.");
+                throw new IFT287Exception("Vous devez entrer un mot de passe.");
             
             if(bd == null || bd.equals(""))
-                throw new BiblioException("Vous devez entrer un nom de base de donnée.");
+                throw new IFT287Exception("Vous devez entrer un nom de base de donnée.");
 
             if (serveur == null || serveur.equals(""))
             {
-                throw new BiblioException("Vous devez choisir un serveur.");
+                throw new IFT287Exception("Vous devez choisir un serveur.");
             }
             
             try
@@ -105,7 +105,7 @@ public class Login extends HttpServlet
             }
             
         }
-        catch (BiblioException e)
+        catch (IFT287Exception e)
         {
             List<String> listeMessageErreur = new LinkedList<String>();
             listeMessageErreur.add(e.getMessage());
