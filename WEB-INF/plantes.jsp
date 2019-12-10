@@ -33,6 +33,13 @@
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
+							<form name="AjouterPlante" method="get"
+								action="AjouterPlante">
+								<input class="btn btn-primary"
+									type="SUBMIT" name="ajouterPlante" value="Ajouter plante">
+							</form>
+					</tr>
+					<tr>
 						<th scope="col">Nom de la plante</th>
 						<th scope="col">Temps de culture en jours</th>
 						

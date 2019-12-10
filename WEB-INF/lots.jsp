@@ -33,6 +33,13 @@
 			<table class="table">
 				<thead class="thead-dark">
 					<tr>
+							<form name="Ajouterlot" method="get"
+								action="AjouterLot">
+								<input class="btn btn-primary"
+									type="SUBMIT" name="ajouterLot" value="Ajouter Lot">
+							</form>
+					</tr>
+					<tr>
 						<th scope="col">Nom du lot</th>
 						<th scope="col">Nombre de membres maximal</th>
 						

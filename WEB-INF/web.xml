@@ -48,8 +48,16 @@
 		<servlet-class>jardinCollectifServlet.Inscription</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>AjouterLot</servlet-name>
+		<servlet-class>jardinCollectifServlet.AjouterLot</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Lots</servlet-name>
 		<servlet-class>jardinCollectifServlet.Lots</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AjouterPlante</servlet-name>
+		<servlet-class>jardinCollectifServlet.AjouterPlante</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Plantes</servlet-name>
@@ -80,8 +88,16 @@
 		<url-pattern>/Inscription</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>AjouterLot</servlet-name>
+		<url-pattern>/AjouterLot</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Lots</servlet-name>
 		<url-pattern>/Lots</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AjouterPlante</servlet-name>
+		<url-pattern>/AjouterPlante</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Plantes</servlet-name>

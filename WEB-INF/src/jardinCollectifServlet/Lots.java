@@ -23,23 +23,8 @@ public class Lots extends HttpServlet
     {
         System.out.println("Servlet Lots : POST");
         try
-        {
-            if (!JardinHelper.peutProceder(getServletContext(), request, response))
-            {
-                System.out.println("Servlet Lots : POST ne peut pas procéder.");
-                // Le dispatch sera fait par BiblioHelper.peutProceder
-                return;
-            }
-
+        {    
             HttpSession session = request.getSession();
-
-            // Si c'est la première fois qu'on essaie de se logguer, ou
-            // d'inscrire quelqu'un
-            if (!JardinHelper.gestionnairesCrees(session))
-            {
-                System.out.println("Servlet Lots : POST Création des gestionnaires");
-                JardinHelper.creerGestionnaire(getServletContext(), session);
-            }
 
             if (request.getParameter("connecter") != null)
             {
